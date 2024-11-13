@@ -1,0 +1,13 @@
+# Ignorowanie folderu .vs
+.vs/
+
+# Ignorowanie folderów build, bin i obj
+bin/
+obj/
+build/
+
+# Ignorowanie plików tymczasowych i systemowych
+*.log
+*.bak
+*.swp
+Thumbs.db
