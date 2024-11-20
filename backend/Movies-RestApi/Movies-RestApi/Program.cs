@@ -21,15 +21,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
+    options.AddPolicy("AllowLocalhost",
+        policy => policy.WithOrigins("http://localhost:3000") // Dodaj URL swojego frontendu
+                       .AllowAnyMethod()
+                       .AllowAnyHeader());
 });
 
 var app = builder.Build();
+
+app.UseCors("AllowLocalhost");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
