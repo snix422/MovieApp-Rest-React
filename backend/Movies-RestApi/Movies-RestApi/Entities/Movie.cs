@@ -18,5 +18,9 @@ namespace Movies_RestApi.Entities
         // Relacja jeden-do-wielu z reżyserem
         public int DirectorId { get; set; }
         public Director Director { get; set; }
+        public int ProductionDetailsId {  get; set; }
+        public ProductionDetails ProductionDetails { get; set; }
+
+        public List<Review> Reviews { get; set; }
     }
 }
