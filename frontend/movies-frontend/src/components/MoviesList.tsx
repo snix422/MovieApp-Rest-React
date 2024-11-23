@@ -20,11 +20,11 @@ const MoviesList = ({movies,isLoading,error}: {movies?:any,isLoading?:boolean,er
 
     return(
         <div>
-            {movies?.map((movie:any)=>{
+            { movies ? movies?.map((movie:any)=>{
                 return(
                     <MovieItem data={movie} />
                 )
-            })}
+            }) : null}
         </div>
     )
 }

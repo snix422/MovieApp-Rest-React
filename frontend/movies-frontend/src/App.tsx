@@ -4,6 +4,7 @@ import './App.css';
 import MoviesContainer from './components/MoviesContainer';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MoviePage from './pages/MoviePage';
+import CategoryPage from './pages/CategoryPage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path='/' element={<MoviesContainer />} />
           <Route path='/movie/:id' element={<MoviePage />} />
+          <Route path='/categories/:categoryName' element={<CategoryPage />} />
         </Routes>
       </BrowserRouter>
     </div>

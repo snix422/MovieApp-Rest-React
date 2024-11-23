@@ -1,6 +1,7 @@
 using Movies_RestApi.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,8 @@ builder.Services.AddCors(options =>
                        .AllowAnyMethod()
                        .AllowAnyHeader());
 });
+
+;
 
 var app = builder.Build();
 
