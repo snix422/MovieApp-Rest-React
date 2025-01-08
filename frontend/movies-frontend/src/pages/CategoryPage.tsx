@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { getMoviesByCategory } from "../api/getMoviesByCategory";
+import MoviesList from "../components/MoviesList";
 
 const CategoryPage = () => {
     const {categoryName} = useParams();
     const [categoryMovies , setCategoryMovies] = useState();
+    const [movies,setMovies] = useState<any>()
     const [loading , setLoading] = useState(true);
     const [error,setError] = useState<any>(null)
 
@@ -19,6 +21,7 @@ const CategoryPage = () => {
                 setLoading(false);
                 setError(null) 
                 setCategoryMovies(res[0])
+                setMovies(res[0].movies)
             } catch (error) {
                 setLoading(false);
                 setError(error)
@@ -30,9 +33,12 @@ const CategoryPage = () => {
     },[])
 
     console.log(categoryMovies)
+    console.log(movies);
     return(
         <main>
-            <h1>Kategoria: {categoryName} </h1>
+            <h1>Kategoria: {categoryName} ({movies?.length}) </h1>
+            <MoviesList movies={movies} />
+            <Link to={`/`}>Powrót na stronę główną</Link>
         </main>
     )
 }

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import "../styles/MovieItem.css"
 
 const MovieItem = ({data}:{data:any}) => {
     const navigate = useNavigate();
@@ -8,7 +9,7 @@ const MovieItem = ({data}:{data:any}) => {
     }
 
     return(
-        <div>
+        <div className="movie-item">
             <h2>{data.title}</h2>
             <h3>{data.genre}</h3>
             <button onClick={handleClick}>Zobacz więcej</button>

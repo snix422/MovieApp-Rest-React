@@ -1,4 +1,5 @@
 import MovieItem from "./MovieItem"
+import "../styles/MovieList.css"
 
 const MoviesList = ({movies,isLoading,error}: {movies?:any,isLoading?:boolean,error?:any}) => {
 
@@ -19,7 +20,7 @@ const MoviesList = ({movies,isLoading,error}: {movies?:any,isLoading?:boolean,er
     }
 
     return(
-        <div>
+        <div className="movie-list">
             { movies ? movies?.map((movie:any)=>{
                 return(
                     <MovieItem data={movie} />
