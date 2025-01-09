@@ -26,6 +26,8 @@ const MoviePage = () => {
         
     },[id])
 
+    console.log(movie)
+
     if(error){
         return(
             <main>

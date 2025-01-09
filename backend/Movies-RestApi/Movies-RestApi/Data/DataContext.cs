@@ -125,21 +125,21 @@ namespace Movies_RestApi.Data
 
             // Filmy
             modelBuilder.Entity<Movie>().HasData(
-                new Movie { Id = 1, Title = "Inception", GenreId = 5, DirectorId = 2, ProductionDetailsId = 1 },
-                new Movie { Id = 2, Title = "Pulp Fiction", GenreId = 2, DirectorId = 3, ProductionDetailsId = 2 },
-                new Movie { Id = 3, Title = "Jurassic Park", GenreId = 1, DirectorId = 1, ProductionDetailsId = 3 },
-                new Movie { Id = 4, Title = "The Revenant", GenreId = 2, DirectorId = 4, ProductionDetailsId = 4 },
-                new Movie { Id = 5, Title = "Titanic", GenreId = 2, DirectorId = 5, ProductionDetailsId = 5 },
-                new Movie { Id = 6, Title = "The Dark Knight", GenreId = 1, DirectorId = 2, ProductionDetailsId = 6 },
-                new Movie { Id = 7, Title = "Avatar", GenreId = 6, DirectorId = 5, ProductionDetailsId = 7 },
-                new Movie { Id = 8, Title = "Interstellar", GenreId = 5, DirectorId = 2, ProductionDetailsId = 8 },
-                new Movie { Id = 9, Title = "The Godfather", GenreId = 2, DirectorId = 4, ProductionDetailsId = 9 },
-                new Movie { Id = 10, Title = "The Matrix", GenreId = 5, DirectorId = 1, ProductionDetailsId = 10 },
-                new Movie { Id = 11, Title = "Gladiator", GenreId = 7, DirectorId = 3, ProductionDetailsId = 11 },
-                new Movie { Id = 12, Title = "The Wolf of Wall Street", GenreId = 2, DirectorId = 4, ProductionDetailsId = 12 },
-                new Movie { Id = 13, Title = "Pirates of the Caribbean", GenreId = 7, DirectorId = 1, ProductionDetailsId = 13 },
-                new Movie { Id = 14, Title = "The Avengers", GenreId = 1, DirectorId = 2, ProductionDetailsId = 14 },
-                new Movie { Id = 15, Title = "Fight Club", GenreId = 2, DirectorId = 3, ProductionDetailsId = 15 }
+                new Movie { Id = 1, Title = "Inception", GenreId = 5, DirectorId = 2, ProductionDetailsId = 1, ImageUrl = "https://m.media-amazon.com/images/I/61AYEacqlkL._AC_SL1000_.jpg" },
+                new Movie { Id = 2, Title = "Pulp Fiction", GenreId = 2, DirectorId = 3, ProductionDetailsId = 2, ImageUrl = "https://m.media-amazon.com/images/I/51DZpY7tfoL.__AC_SX300_SY300_QL70_ML2_.jpg" },
+                new Movie { Id = 3, Title = "Jurassic Park", GenreId = 1, DirectorId = 1, ProductionDetailsId = 3, ImageUrl = "https://fwcdn.pl/fpo/12/12/1212/8067050_1.10.webp" },
+                new Movie { Id = 4, Title = "The Revenant", GenreId = 2, DirectorId = 4, ProductionDetailsId = 4, ImageUrl = "https://m.media-amazon.com/images/M/MV5BYTgwNmQzZDctMjNmOS00OTExLTkwM2UtNzJmOTJhODFjOTdlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" },
+                new Movie { Id = 5, Title = "Titanic", GenreId = 2, DirectorId = 5, ProductionDetailsId = 5, ImageUrl= "https://m.media-amazon.com/images/M/MV5BYzYyN2FiZmUtYWYzMy00MzViLWJkZTMtOGY1ZjgzNWMwN2YxXkEyXkFqcGc@._V1_.jpg" },
+                new Movie { Id = 6, Title = "The Dark Knight", GenreId = 1, DirectorId = 2, ProductionDetailsId = 6, ImageUrl= "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UX1000_.jpg" },
+                new Movie { Id = 7, Title = "Avatar", GenreId = 6, DirectorId = 5, ProductionDetailsId = 7, ImageUrl= "https://fwcdn.pl/fpo/81/78/558178/8047434_1.8.webp" },
+                new Movie { Id = 8, Title = "Interstellar", GenreId = 5, DirectorId = 2, ProductionDetailsId = 8, ImageUrl= "https://fwcdn.pl/fpo/56/29/375629/7670122_2.8.webp" },
+                new Movie { Id = 9, Title = "The Godfather", GenreId = 2, DirectorId = 4, ProductionDetailsId = 9, ImageUrl= "https://m.media-amazon.com/images/M/MV5BYTJkNGQyZDgtZDQ0NC00MDM0LWEzZWQtYzUzZDEwMDljZWNjXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" },
+                new Movie { Id = 10, Title = "The Matrix", GenreId = 5, DirectorId = 1, ProductionDetailsId = 10, ImageUrl= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfSjSWOCaw5dnDL2GT1zFd9RMCgUGw5Q2Cfg&s" },
+                new Movie { Id = 11, Title = "Gladiator", GenreId = 7, DirectorId = 3, ProductionDetailsId = 11, ImageUrl= "https://m.media-amazon.com/images/I/51GA6V6VE1L._AC_UF894,1000_QL80_.jpg" },
+                new Movie { Id = 12, Title = "The Wolf of Wall Street", GenreId = 2, DirectorId = 4, ProductionDetailsId = 12, ImageUrl= "https://fwcdn.pl/fpo/65/97/426597/7586610_1.8.webp" },
+                new Movie { Id = 13, Title = "Pirates of the Caribbean", GenreId = 7, DirectorId = 1, ProductionDetailsId = 13, ImageUrl= "https://fwcdn.pl/fpo/73/09/37309/7515192_1.3.jpg" },
+                new Movie { Id = 14, Title = "The Avengers", GenreId = 1, DirectorId = 2, ProductionDetailsId = 14, ImageUrl = "https://fwcdn.pl/fpo/15/15/371515/7611932_1.3.jpg" },
+                new Movie { Id = 15, Title = "Fight Club", GenreId = 2, DirectorId = 3, ProductionDetailsId = 15,ImageUrl= "https://m.media-amazon.com/images/M/MV5BOTgyOGQ1NDItNGU3Ny00MjU3LTg2YWEtNmEyYjBiMjI1Y2M5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" }
             );
 
             // Szczegóły produkcji

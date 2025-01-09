@@ -22,7 +22,6 @@ namespace Movies_RestApi.Entities
         public ProductionDetails ProductionDetails { get; set; }
 
         public List<Review> Reviews { get; set; }
-
-        public string ImageUrl {  get; set; }
+        public string ImageUrl { get; set; }
     }
 }

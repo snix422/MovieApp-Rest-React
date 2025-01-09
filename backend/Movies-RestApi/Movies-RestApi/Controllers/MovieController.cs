@@ -38,7 +38,8 @@ namespace Movies_RestApi.Controllers
                                 FullName = $"{a.FirstName} {a.LastName}"
                             }).ToList(),
                             ProductionDetails = m.ProductionDetails,
-                            Reviews = m.Reviews
+                            Reviews = m.Reviews,
+                            ImgUrl = m.ImageUrl
                         })
                         .ToListAsync();
 

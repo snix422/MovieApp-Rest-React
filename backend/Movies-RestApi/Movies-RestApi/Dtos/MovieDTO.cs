@@ -11,5 +11,6 @@ namespace Movies_RestApi.Dtos
         public List<ActorDTO> Actors { get; set; }
         public object ProductionDetails { get; set; }
         public List<Review> Reviews { get; set; }
+        public string ImgUrl { get; set; }
     }
 }
