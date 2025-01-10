@@ -1,0 +1,80 @@
+main {
+    min-height: 100vh;
+}
+
+.movie-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    /* Jasne tło */
+    color: #333;
+    /* Kolor tekstu */
+    font-family: Arial, sans-serif;
+    /* Prosta czcionka */
+}
+
+.movie-img {
+    max-width: 60vw;
+    height: 50vh;
+    border-radius: 10px;
+    /* Zaokrąglone rogi */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Delikatny cień */
+    margin-bottom: 20px;
+}
+
+.movie-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.movie-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #007bff;
+    /* Niebieski kolor nazwy filmu */
+}
+
+.movie-genre,
+.movie-director,
+.movie-studio,
+.movie-budget {
+    font-size: 1.2rem;
+    margin: 5px 0;
+}
+
+.reviews-title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #555;
+    /* Subtelny kolor tytułu sekcji opinii */
+}
+
+.movie-reviews {
+    width: 100%;
+    max-width: 800px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Cień dla sekcji opinii */
+}
+
+.review-item {
+    padding: 10px;
+    margin: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+    /* Usunięcie obramowania dla ostatniego elementu */
+}
+
+.link {
+    margin-top: 1rem;
+}

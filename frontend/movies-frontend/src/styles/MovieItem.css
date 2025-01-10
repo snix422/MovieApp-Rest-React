@@ -4,10 +4,65 @@
     align-items: center;
     width: 15vw;
     height: 40vh;
-    border: 2px solid black;
-    margin-top: 1rem;
-    padding-bottom: 0.4rem;
     gap: -25px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-item:hover {
+    transform: translateY(-10px);
+    /* Lekko unosi się przy hover */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    /* Zwiększony cień */
+}
+
+.movie-item h2 {
+    font-size: 20px;
+    /* Wielkość nagłówka */
+    color: #333;
+    /* Ciemny kolor tekstu */
+    margin-bottom: 10px;
+    /* Odstęp pod nagłówkiem */
+}
+
+.movie-item h3 {
+    font-size: 16px;
+    /* Mniejszy tekst dla gatunku */
+    color: #666;
+    /* Subtelniejszy kolor tekstu */
+    margin-bottom: 15px;
+    /* Odstęp pod gatunkiem */
+}
+
+.movie-item button {
+    background-color: #007bff;
+    /* Niebieskie tło */
+    color: #fff;
+    /* Biały tekst */
+    border: none;
+    /* Bez obramowania */
+    border-radius: 5px;
+    /* Zaokrąglone rogi */
+    padding: 10px 15px;
+    /* Wygodna przestrzeń */
+    font-size: 14px;
+    /* Wielkość tekstu */
+    font-weight: bold;
+    /* Pogrubiony tekst */
+    cursor: pointer;
+    /* Wskaźnik kursora */
+    transition: background-color 0.3s ease;
+    /* Animacja zmiany koloru */
+}
+
+.movie-item button:hover {
+    background-color: #0056b3;
+    /* Ciemniejszy niebieski przy hover */
 }
 
 .img {

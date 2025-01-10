@@ -66,7 +66,8 @@ namespace Movies_RestApi.Controllers
                                 FullName = $"{a.FirstName} {a.LastName}"
                             }).ToList(),
                             ProductionDetails = m.ProductionDetails,
-                            Reviews = m.Reviews
+                            Reviews = m.Reviews,
+                            ImgUrl= m.ImageUrl
                         })
                 .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -81,32 +82,42 @@ namespace Movies_RestApi.Controllers
         [HttpGet("movies/category/{category}")]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMoviesByCategory(string category)
         {
+
+            Console.WriteLine(category);
             if (string.IsNullOrEmpty(category))
             {
                 return BadRequest("Kategoria nie może posiadać");
             }
 
+            /*var movies = await _dataContext.Movies
+     .Where(m => m.Genre != null && m.Genre.Name.ToLower() == category.ToLower())
+     .Include(m => m.Genre)
+     .Include(m => m.Director)
+     .Include(m => m.Actors)
+     .Include(m => m.ProductionDetails)
+     .Include(m => m.Reviews)
+     .Select(m => new MovieDTO
+     {
+         Id = m.Id,
+         Title = m.Title,
+         Genre = m.Genre.Name,
+         Director = m.Director != null ? $"{m.Director.FirstName} {m.Director.LastName}" : null,
+         Actors = m.Actors.Select(a => new ActorDTO
+         {
+             FullName = $"{a.FirstName} {a.LastName}"
+         }).ToList(),
+         ProductionDetails = m.ProductionDetails,
+         Reviews = m.Reviews,
+         ImgUrl = m.ImageUrl
+     })
+     .ToListAsync();*/
+
             var movies = await _dataContext.Movies
-                        .Include(m => m.Genre)
-                        .Include(m => m.Director)
-                        .Include(m => m.Actors)
-                        .Include(m => m.ProductionDetails)
-                        .Include(m => m.Reviews)
-                        .Select(m => new MovieDTO
-                        {
-                            Id = m.Id,
-                            Title = m.Title,
-                            Genre = m.Genre.Name,
-                            Director = m.Director != null ? $"{m.Director.FirstName} {m.Director.LastName}" : null,
-                            Actors = m.Actors.Select(a => new ActorDTO
-                            {
-                                FullName = $"{a.FirstName} {a.LastName}"
-                            }).ToList(),
-                            ProductionDetails = m.ProductionDetails,
-                            Reviews = m.Reviews
-                        })
-                        .Where(m => EF.Functions.Like(m.Genre, $"%{category}%"))
-                            .ToListAsync();
+    .Include(m => m.Genre)  // Upewnij się, że Genre jest załadowane
+    .Where(m => m.Genre != null && m.Genre.Name.ToLower() == category.ToLower())  // Filtruj po kategorii
+    .ToListAsync();
+
+            Console.WriteLine(movies);
 
             if (!movies.Any())
             {
@@ -118,7 +129,7 @@ namespace Movies_RestApi.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMoviesByQuery(string query)
+        public async Task<ActionResult<IEnumerable<Movie>>> GetMoviesByQuery([FromQuery]string query)
         {
             if(string.IsNullOrEmpty(query))
             {
@@ -142,9 +153,11 @@ namespace Movies_RestApi.Controllers
                                 FullName = $"{a.FirstName} {a.LastName}"
                             }).ToList(),
                             ProductionDetails = m.ProductionDetails,
-                            Reviews = m.Reviews
+                            Reviews = m.Reviews,
+                            ImgUrl = m.ImageUrl
                         })
                 .ToListAsync();
+
 
             if (!movies.Any())
             {

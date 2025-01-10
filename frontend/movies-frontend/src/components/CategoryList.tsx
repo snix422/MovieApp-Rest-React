@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react"
 import { getAllCategories } from "../api/getAllCategories";
 import { useNavigate } from "react-router-dom";
+import "../styles/CategoryList.css"
 
 const CategoryList = () => {
 

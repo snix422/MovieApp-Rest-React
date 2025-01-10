@@ -10,7 +10,7 @@ const MovieItem = ({data}:{data:any}) => {
 
     return(
         <div className="movie-item">
-            <img className="img" src={data.imgUrl} alt={data.name} />
+            {data.imgUrl ? <img className="img" src={data.imgUrl} alt={data.name} /> : null }
             <h2>{data.title}</h2>
             <h3>{data.genre}</h3>
             <button onClick={handleClick}>Zobacz więcej</button>

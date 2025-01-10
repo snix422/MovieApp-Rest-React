@@ -1,0 +1,33 @@
+button {
+    background-color: #f5f5f5;
+    /* Jasne tło */
+    color: #333;
+    /* Ciemny tekst */
+    border: 2px solid #ddd;
+    /* Subtelna obramowanie */
+    border-radius: 5px;
+    /* Zaokrąglone rogi */
+    padding: 10px 20px;
+    /* Wygodna przestrzeń wewnętrzna */
+    margin: 5px;
+    /* Odstępy między przyciskami */
+    font-size: 16px;
+    /* Wielkość tekstu */
+    font-weight: bold;
+    /* Pogrubiony tekst */
+    cursor: pointer;
+    /* Kursor wskazuje, że element jest klikalny */
+    transition: all 0.3s ease;
+    /* Animacja przy zmianie stylu */
+}
+
+button:hover {
+    background-color: #007bff;
+    /* Kolor na hover (np. niebieski) */
+    color: #fff;
+    /* Tekst zmienia kolor na biały */
+    border-color: #007bff;
+    /* Dopasowanie koloru obramowania */
+    transform: translateY(-3px);
+    /* Lekko unosi się przy hover */
+}

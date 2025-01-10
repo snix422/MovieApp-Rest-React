@@ -3,6 +3,7 @@ import { useMovies } from "../hooks/useMovies"
 import MoviesList from "./MoviesList";
 import { getAllMovies } from "../api/getAllMovies";
 import CategoryList from "./CategoryList";
+import SearchActions from "./SearchActions";
 
 const MoviesContainer = () => {
 
@@ -29,6 +30,7 @@ const MoviesContainer = () => {
 
     return(
         <div>
+            <SearchActions />
             <h2>Lista filmów</h2>
             <CategoryList />
             <MoviesList movies={movies} isLoading={loading} error={error}  />

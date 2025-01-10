@@ -20,6 +20,7 @@ const CategoryPage = () => {
                 console.log(res);
                 setLoading(false);
                 setError(null) 
+                console.log(res);
                 setCategoryMovies(res[0])
                 setMovies(res[0].movies)
             } catch (error) {
@@ -32,8 +33,7 @@ const CategoryPage = () => {
         fetchData();
     },[])
 
-    console.log(categoryMovies)
-    console.log(movies);
+   
     return(
         <main>
             <h1>Kategoria: {categoryName} ({movies?.length}) </h1>
