@@ -18,13 +18,13 @@ namespace Movies_RestApi.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Relacja wiele-do-jednego z gatunkiem
+            
             modelBuilder.Entity<Movie>()
                 .HasOne(m => m.Genre)
                 .WithMany(g => g.Movies)
                 .HasForeignKey(m => m.GenreId);
 
-            // Relacja wiele-do-jednego z reżyserem
+          
             modelBuilder.Entity<Movie>()
                 .HasOne(m => m.Director)
                 .WithMany(d => d.Movies)

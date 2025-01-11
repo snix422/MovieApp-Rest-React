@@ -2,19 +2,15 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
 import { getMoviesByCategory } from "../api/getMoviesByCategory";
 import MoviesList from "../components/MoviesList";
-
 const CategoryPage = () => {
     const {categoryName} = useParams();
     const [categoryMovies , setCategoryMovies] = useState();
     const [movies,setMovies] = useState<any>()
     const [loading , setLoading] = useState(true);
     const [error,setError] = useState<any>(null)
-
     useEffect(()=>{
         const fetchData =  async () =>{
-
             if(!categoryName) return
-
             try {
                 const res = await getMoviesByCategory(categoryName);
                 console.log(res);
@@ -26,14 +22,10 @@ const CategoryPage = () => {
             } catch (error) {
                 setLoading(false);
                 setError(error)
-            }
-           
+            } 
         }
-
         fetchData();
     },[])
-
-   
     return(
         <main>
             <h1>Kategoria: {categoryName} ({movies?.length}) </h1>
@@ -42,5 +34,4 @@ const CategoryPage = () => {
         </main>
     )
 }
-
 export default CategoryPage
