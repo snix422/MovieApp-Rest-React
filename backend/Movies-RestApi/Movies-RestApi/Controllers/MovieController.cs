@@ -1,170 +1,82 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movies_RestApi.Data;
 using Movies_RestApi.Dtos;
 using Movies_RestApi.Entities;
+using Movies_RestApi.Exceptions;
+using Movies_RestApi.Models;
+using Movies_RestApi.Services;
+using System.Runtime.CompilerServices;
+using MovieDTO = Movies_RestApi.Models.MovieDTO;
 
 namespace Movies_RestApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/movie")]
     public class MovieController : Controller
     {
         private readonly DataContext _dataContext;
-        public MovieController(DataContext dataContext)
+        private readonly IMapper _mapper;
+        private readonly ILogger<MovieController> _logger;
+        private readonly IMovieService _movieService;
+        public MovieController(DataContext dataContext, IMapper mapper, ILogger<MovieController> logger, IMovieService movieService)
         {
             _dataContext = dataContext;
+            _mapper = mapper;
+            _logger = logger;
+            _movieService = movieService;
         }
 
        
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
+        public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMovies([FromQuery] MovieQuery query)
         {
-            var movies = await _dataContext.Movies
-                        .Include(m => m.Genre)
-                        .Include(m => m.Director)
-                        .Include(m => m.Actors)
-                        .Include(m => m.ProductionDetails)
-                        .Include(m => m.Reviews)
-                        .Select(m => new MovieDTO
-                        {
-                            Id = m.Id,
-                            Title = m.Title,
-                            Genre = m.Genre.Name,
-                            Director = m.Director != null ? $"{m.Director.FirstName} {m.Director.LastName}" : null,
-                            Actors = m.Actors.Select(a => new ActorDTO
-                            {
-                                FullName = $"{a.FirstName} {a.LastName}"
-                            }).ToList(),
-                            ProductionDetails = m.ProductionDetails,
-                            Reviews = m.Reviews,
-                            ImgUrl = m.ImageUrl
-                        })
-                        .ToListAsync();
+            _logger.LogInformation("Pobieranie listy filmów...");
+            
+            var moviesDTO =  _movieService.GetAllMovies(query);
 
-            return Ok(movies);
+            return Ok(moviesDTO);
         }
 
-        [HttpGet("movie/{id}")]
-        public async Task<ActionResult<Movie>> GetMovie(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<MovieDTO>> GetMovie([FromRoute]int id)
         {
-            var movie = await _dataContext.Movies
-                        .Include(m => m.Genre)
-                        .Include(m => m.Director)
-                        .Include(m => m.Actors)
-                        .Include(m => m.ProductionDetails)
-                        .Include(m => m.Reviews)
-                        .Select(m => new MovieDTO
-                        {
-                            Id = m.Id,
-                            Title = m.Title,
-                            Genre = m.Genre.Name,
-                            Director = m.Director != null ? $"{m.Director.FirstName} {m.Director.LastName}" : null,
-                            Actors = m.Actors.Select(a => new ActorDTO
-                            {
-                                FullName = $"{a.FirstName} {a.LastName}"
-                            }).ToList(),
-                            ProductionDetails = m.ProductionDetails,
-                            Reviews = m.Reviews,
-                            ImgUrl= m.ImageUrl
-                        })
-                .FirstOrDefaultAsync(m => m.Id == id);
+           var movieDTO = _movieService.GetMovieById(id);
 
-            if(movie == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(movie);
+           return Ok(movieDTO);
         }
 
-        [HttpGet("movies/category/{category}")]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMoviesByCategory(string category)
+        [HttpGet("category")]
+        public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMoviesByCategory([FromQuery]string category)
         {
 
-            Console.WriteLine(category);
+           
             if (string.IsNullOrEmpty(category))
             {
                 return BadRequest("Kategoria nie może posiadać");
             }
 
-            /*var movies = await _dataContext.Movies
-     .Where(m => m.Genre != null && m.Genre.Name.ToLower() == category.ToLower())
-     .Include(m => m.Genre)
-     .Include(m => m.Director)
-     .Include(m => m.Actors)
-     .Include(m => m.ProductionDetails)
-     .Include(m => m.Reviews)
-     .Select(m => new MovieDTO
-     {
-         Id = m.Id,
-         Title = m.Title,
-         Genre = m.Genre.Name,
-         Director = m.Director != null ? $"{m.Director.FirstName} {m.Director.LastName}" : null,
-         Actors = m.Actors.Select(a => new ActorDTO
-         {
-             FullName = $"{a.FirstName} {a.LastName}"
-         }).ToList(),
-         ProductionDetails = m.ProductionDetails,
-         Reviews = m.Reviews,
-         ImgUrl = m.ImageUrl
-     })
-     .ToListAsync();*/
 
-            var movies = await _dataContext.Movies
-    .Include(m => m.Genre)  // Upewnij się, że Genre jest załadowane
-    .Where(m => m.Genre != null && m.Genre.Name.ToLower() == category.ToLower())  // Filtruj po kategorii
-    .ToListAsync();
-
-            Console.WriteLine(movies);
-
-            if (!movies.Any())
-            {
-                return NotFound("Nie znaleziono filmu dla danej kategorii");
-            }
-
-            return Ok(movies);  
+            var moviesDTO = _movieService.GetMoviesByCategory(category);
+            
+            return Ok(moviesDTO);  
 
         }
 
-        [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMoviesByQuery([FromQuery]string query)
+        [HttpGet("query")]
+
+        public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMoviesByQuery([FromQuery]string query)
         {
             if(string.IsNullOrEmpty(query))
             {
                 return BadRequest("Fraza szukana nie może być pusta");
             }
-            var movies = await _dataContext.Movies
-                .Where(m => EF.Functions.Like(m.Title.ToLower(), $"%{query.ToLower()}%"))
-                        .Include(m => m.Genre)
-                        .Include(m => m.Director)
-                        .Include(m => m.Actors)
-                        .Include(m => m.ProductionDetails)
-                        .Include(m => m.Reviews)
-                        .Select(m => new MovieDTO
-                        {
-                            Id = m.Id,
-                            Title = m.Title,
-                            Genre = m.Genre.Name,
-                            Director = m.Director != null ? $"{m.Director.FirstName} {m.Director.LastName}" : null,
-                            Actors = m.Actors.Select(a => new ActorDTO
-                            {
-                                FullName = $"{a.FirstName} {a.LastName}"
-                            }).ToList(),
-                            ProductionDetails = m.ProductionDetails,
-                            Reviews = m.Reviews,
-                            ImgUrl = m.ImageUrl
-                        })
-                .ToListAsync();
+            
+            var moviesDTO = _movieService.GetMoviesByQuery(query);
 
-
-            if (!movies.Any())
-            {
-                return NotFound("Nie znaleziono filmu dla danej frazy");
-            }
-
-            return Ok(movies);
+            return Ok(moviesDTO);
                 
         }
 
