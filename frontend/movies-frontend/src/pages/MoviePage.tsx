@@ -3,12 +3,15 @@ import { Link, useParams } from "react-router-dom"
 import { getMovie } from "../api/getMovie";
 import ReviewItem from "../components/ReviewItem";
 import "../styles/MoviePage.css"
+import useMovie from "../hooks/useMovie";
 
 const MoviePage = () => {
     const {id} = useParams();
-    const [movie,setMovie] = useState<any>(null);
+    const {isLoading , error, movie} = useMovie(Number(id))
+    /*const [movie,setMovie] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(""); 
+    
 
     useEffect(()=>{
         const fetchMovies = async () => {
@@ -26,19 +29,19 @@ const MoviePage = () => {
                 fetchMovies()
             }
         
-    },[id])
+    },[id])*/
 
     console.log(movie)
 
     if(error){
         return(
             <main>
-                <h1>{error}</h1>
+                <h1>{error.message}</h1>
             </main>
         )
     }
 
-    if(loading){
+    if(isLoading){
         return(
             <main>
                 <h2>Ładowanie...</h2>
