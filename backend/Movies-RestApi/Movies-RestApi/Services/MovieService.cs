@@ -1,17 +1,20 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Movies_RestApi.Data;
+using Movies_RestApi.Entities;
 using Movies_RestApi.Exceptions;
 using Movies_RestApi.Models;
+using System.Collections;
 
 namespace Movies_RestApi.Services
 {
     public interface IMovieService
     {
-        MovieDTO GetMovieById(int id);
+        Task<MovieDTO> GetMovieById(int id);
         PagedResult<MovieDTO> GetAllMovies(MovieQuery query);
         IEnumerable<MovieDTO> GetMoviesByQuery(string query);
         IEnumerable<MovieDTO> GetMoviesByCategory(string category);
+        Task<IEnumerable<MovieDTO>> GetTopRatedMovies();
     }
     public class MovieService : IMovieService
     {
@@ -23,31 +26,16 @@ namespace Movies_RestApi.Services
             _mapper = mapper;
         }
 
-        public MovieDTO GetMovieById(int id)
+        public async Task<MovieDTO> GetMovieById(int id)
         {
-            var movie = _dbContext.Movies
+            var movie = await _dbContext.Movies
                        .Include(m => m.Genre)
                        .Include(m => m.Director)
                        .Include(m => m.Actors)
                        .Include(m => m.ProductionDetails)
                        .Include(m => m.Reviews)
-                       .FirstOrDefault(m => m.Id == id);
-               /*.Select(m => new MovieDTO
-               {
-                   Id = m.Id,
-                   Title = m.Title,
-                   Genre = m.Genre.Name,
-                   Director = m.Director != null ? $"{m.Director.FirstName} {m.Director.LastName}" : null,
-                   Actors = m.Actors.Select(a => new ActorDTO
-                   {
-                       FullName = $"{a.FirstName} {a.LastName}"
-                   }).ToList(),
-                   ProductionDetails = m.ProductionDetails,
-                   Reviews = m.Reviews,
-                   ImgUrl= m.ImageUrl
-               })*/
+                       .FirstOrDefaultAsync(m => m.Id == id);
                
-
             if (movie is null) throw new NotFoundException("Movie not found");
 
 
@@ -58,12 +46,13 @@ namespace Movies_RestApi.Services
 
         public PagedResult<MovieDTO> GetAllMovies(MovieQuery query)
         {
+
             var baseQuery = _dbContext.Movies
                         .Include(m => m.Genre)
-                        .Include(m => m.Director)
-                        .Include(m => m.Actors)
+                        .Include(m => m.Director) 
                         .Include(m => m.ProductionDetails)
                         .Include(m => m.Reviews)
+                        .Include(m => m.Actors)
                         .Where(m => query.searchPhrase == null || (m.Title.ToLower().Contains(query.searchPhrase.ToLower())));
 
 
@@ -72,15 +61,36 @@ namespace Movies_RestApi.Services
                         .Take(query.pageSize)
                         .ToList();
 
-            if (movies is null) throw new NotFoundException("Movies not found");
+            if (!movies.Any()) throw new NotFoundException("Movies not found");
 
             var moviesDTO = _mapper.Map<List<MovieDTO>>(movies);
 
             var totalMoviesCount = baseQuery.Count();
 
-            var result = new PagedResult<MovieDTO>(moviesDTO,totalMoviesCount, query.pageSize, query.pageNumber);
+            var result = new PagedResult<MovieDTO>(moviesDTO, totalMoviesCount, query.pageSize, query.pageNumber);
 
             return result;
+            
+           
+        }
+
+        public async Task<IEnumerable<MovieDTO>> GetTopRatedMovies()
+        {
+            var topRatedMovies = await _dbContext.Movies
+                                    .Include(m => m.Genre)
+                                    .Include(m => m.Director)
+                                    .Include(m => m.Actors)
+                                    .Include(m => m.ProductionDetails)
+                                    .Include(m => m.Reviews)
+                                    .OrderByDescending(m => m.Rating)
+                                    .Take(5)
+                                    .ToListAsync();
+
+            if (!topRatedMovies.Any()) throw new NotFoundException("Nie znaleziono filmów");
+
+            var topRatedDTO = _mapper.Map<List<MovieDTO>>(topRatedMovies);
+
+            return topRatedDTO;
         }
 
         public IEnumerable<MovieDTO> GetMoviesByQuery(string query)
@@ -93,26 +103,11 @@ namespace Movies_RestApi.Services
                         .Include(m => m.Actors)
                         .Include(m => m.ProductionDetails)
                         .Include(m => m.Reviews)
-                /*.Select(m => new MovieDTO
-                {
-                    Id = m.Id,
-                    Title = m.Title,
-                    Genre = m.Genre.Name,
-                    Director = m.Director != null ? $"{m.Director.FirstName} {m.Director.LastName}" : null,
-                    Actors = m.Actors.Select(a => new ActorDTO
-                    {
-                        FullName = $"{a.FirstName} {a.LastName}"
-                    }).ToList(),
-                    ProductionDetails = m.ProductionDetails,
-                    Reviews = m.Reviews,
-                    ImgUrl = m.ImageUrl
-                })*/
                 .ToList();
 
 
-            //if (movies is null) throw new NotFoundException("Nie znaleziono filmów");
+            if (movies is null) throw new NotFoundException("Nie znaleziono filmów");
           
-
             var moviesDTO = _mapper.Map<List<MovieDTO>>(movies);
 
             return moviesDTO;

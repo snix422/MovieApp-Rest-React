@@ -21,6 +21,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Logging.ClearProviders();
 builder.Logging.AddNLog();
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IActorService, ActorService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IValidator<MovieQuery>,MovieQueryValidator>();
 builder.Services.AddDbContext<DataContext>(options =>

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movies_RestApi.Data;
-using Movies_RestApi.Dtos;
 using Movies_RestApi.Entities;
 using Movies_RestApi.Exceptions;
 using Movies_RestApi.Models;
@@ -16,25 +15,21 @@ namespace Movies_RestApi.Controllers
     [Route("api/movie")]
     public class MovieController : Controller
     {
-        private readonly DataContext _dataContext;
-        private readonly IMapper _mapper;
         private readonly ILogger<MovieController> _logger;
         private readonly IMovieService _movieService;
-        public MovieController(DataContext dataContext, IMapper mapper, ILogger<MovieController> logger, IMovieService movieService)
+        public MovieController(ILogger<MovieController> logger, IMovieService movieService)
         {
-            _dataContext = dataContext;
-            _mapper = mapper;
             _logger = logger;
             _movieService = movieService;
         }
-
-       
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMovies([FromQuery] MovieQuery query)
         {
             _logger.LogInformation("Pobieranie listy filmów...");
-            
+
+      
+     
             var moviesDTO =  _movieService.GetAllMovies(query);
 
             return Ok(moviesDTO);
@@ -43,9 +38,17 @@ namespace Movies_RestApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<MovieDTO>> GetMovie([FromRoute]int id)
         {
-           var movieDTO = _movieService.GetMovieById(id);
+           var movieDTO = await _movieService.GetMovieById(id);
 
            return Ok(movieDTO);
+        }
+
+        [HttpGet("top-rated")]
+        public async Task<ActionResult<IEnumerable<MovieDTO>>> GetTopRatedMovies()
+        {
+            var topRatedMovies = await _movieService.GetTopRatedMovies();
+
+            return Ok(topRatedMovies);
         }
 
         [HttpGet("category")]
