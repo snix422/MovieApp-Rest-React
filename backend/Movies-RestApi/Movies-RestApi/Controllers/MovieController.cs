@@ -51,18 +51,11 @@ namespace Movies_RestApi.Controllers
             return Ok(topRatedMovies);
         }
 
-        [HttpGet("category")]
-        public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMoviesByCategory([FromQuery]string category)
+        [HttpGet("category/{categoryName}")]
+        public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMoviesByCategory([FromRoute]string categoryName)
         {
-
-           
-            if (string.IsNullOrEmpty(category))
-            {
-                return BadRequest("Kategoria nie może posiadać");
-            }
-
-
-            var moviesDTO = _movieService.GetMoviesByCategory(category);
+          
+            var moviesDTO = _movieService.GetMoviesByCategory(categoryName);
             
             return Ok(moviesDTO);  
 

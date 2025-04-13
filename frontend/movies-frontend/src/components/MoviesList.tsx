@@ -21,7 +21,7 @@ const MoviesList = ({movies,isLoading,error}: {movies?:any,isLoading?:boolean,er
 
     return(
         <div className="movie-list">
-            { movies ? movies?.map((movie:any)=>{
+            { movies.length > 0 ? movies?.map((movie:any)=>{
                 return(
                     <MovieItem data={movie} />
                 )
