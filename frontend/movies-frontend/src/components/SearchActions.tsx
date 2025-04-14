@@ -9,7 +9,7 @@ const SearchActions = () => {
 
     const handleSearch = () => {
         if (searchInput.trim()) {
-            navigate(`/search?query=${encodeURIComponent(searchInput.trim())}`);
+            navigate(`/search?query=${encodeURIComponent(searchInput.trim())}&page=1`);
         }
     }
 

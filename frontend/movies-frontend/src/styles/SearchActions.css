@@ -1,36 +1,22 @@
 input {
     width: 100%;
-    /* Szerokość na całej dostępnej przestrzeni */
     max-width: 400px;
-    /* Maksymalna szerokość */
     padding: 10px 15px;
-    /* Wewnętrzny odstęp */
     font-size: 16px;
-    /* Wielkość tekstu */
     color: #333;
-    /* Ciemny kolor tekstu */
     background-color: #f9f9f9;
-    /* Jasne tło */
     border: 1px solid #ddd;
-    /* Subtelne obramowanie */
     border-radius: 5px;
-    /* Zaokrąglone rogi */
     outline: none;
-    /* Usunięcie domyślnego podświetlenia */
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    /* Animacja efektu */
 }
 
 input:focus {
     border-color: #007bff;
-    /* Niebieskie obramowanie podczas focus */
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    /* Delikatny cień w kolorze niebieskim */
 }
 
 input::placeholder {
     color: #aaa;
-    /* Jasny kolor tekstu placeholdera */
     font-style: italic;
-    /* Kursywa dla placeholdera */
 }

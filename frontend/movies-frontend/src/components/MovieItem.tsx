@@ -7,7 +7,7 @@ const MovieItem = ({data}:{data:any}) => {
     const handleClick = () => {
         navigate(`/movie/${data.id}`);
     }
-    console.log(data);
+    
     return(
         <div className="movie-item">
             {data.imageUrl ? <img className="img" src={data.imageUrl} alt={data.name} /> : null }

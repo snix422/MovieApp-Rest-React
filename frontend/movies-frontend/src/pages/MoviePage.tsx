@@ -1,73 +1,70 @@
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
-import { getMovie } from "../api/getMovie";
 import ReviewItem from "../components/ReviewItem";
 import "../styles/MoviePage.css"
 import useMovie from "../hooks/useMovie";
+import ActorsList from "../components/ActorsList";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const MoviePage = () => {
-    const {id} = useParams();
-    const {isLoading , error, movie} = useMovie(Number(id))
-    /*const [movie,setMovie] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(""); 
-    
-
-    useEffect(()=>{
-        const fetchMovies = async () => {
-            try {
-                const moviesData = await getMovie(id);
-                setMovie(moviesData); 
-                setLoading(false); 
-              } catch (err) {
-                setError("Wystąpił problem z pobraniem danych"); 
-                setLoading(false);
-              }
-            };
-
-            if(id){
-                fetchMovies()
-            }
-        
-    },[id])*/
-
+    const { id } = useParams();
+    const { isLoading, error, movie } = useMovie(Number(id));
     console.log(movie)
-
-    if(error){
-        return(
-            <main>
-                <h1>{error.message}</h1>
-            </main>
-        )
+    if (error) {
+      return (
+        <main className="movie-error">
+          <h1>Wystąpił błąd: {error.message}</h1>
+          <Link to="/" className="back-link">Powrót na stronę główną</Link>
+        </main>
+      );
     }
-
-    if(isLoading){
-        return(
-            <main>
-                <h2>Ładowanie...</h2>
-            </main>
-        )
+  
+    if (isLoading) {
+      return (
+        <main className="movie-loading">
+          <LoadingSpinner />
+        </main>
+      );
     }
-
-    return(
-        <main className="movie-details">
-    <img className="movie-img" src={movie.imgUrl} alt={movie.title} />
-    <div className="movie-info">
-        <h2 className="movie-title">Nazwa: {movie.title}</h2>
-        <h3 className="movie-genre">Kategoria: {movie.genre}</h3>
-        <h3 className="movie-director">Reżyser: {movie.director}</h3>
-        <h4 className="movie-studio">Wytwórnia: {movie.productionDetails.studio}</h4>
-        <h5 className="movie-budget">Budżet filmu: {movie.productionDetails.budget} $</h5>
-    </div>
-    <div className="movie-reviews">
-        <h2 className="reviews-title">Opinie:</h2>
-        {movie.reviews.map((m: any, index: number) => (
-            <ReviewItem key={index} data={m} />
-        ))}
-    </div>
-    <Link className="link" to={"/"}>Powrót na stronę główną</Link>
-</main>
-    )
-}
-
-export default MoviePage
+  
+    if (!movie) {
+      return (
+        <main className="movie-not-found">
+          <h2>Nie znaleziono filmu.</h2>
+          <Link to="/" className="back-link">Powrót na stronę główną</Link>
+        </main>
+      );
+    }
+  
+    return (
+      <main className="movie-details">
+        <img className="movie-img" src={movie.imageUrl} alt={movie.title} />
+  
+        <div className="movie-info">
+          <h2 className="movie-title">Nazwa: {movie.title}</h2>
+          <h3 className="movie-genre">Kategoria: {movie.categoryName}</h3>
+          <h3 className="movie-director">Reżyser: {movie.directorName} {movie.directorSurname}</h3>
+          <h4 className="movie-studio">
+            Wytwórnia: {movie.studio || "Brak danych"}
+          </h4>
+          <h4 className="movie-budget">
+            Budżet filmu: {movie.budget} $
+          </h4>
+        </div>
+        <ActorsList actors={movie.actors} />
+        <div className="movie-reviews">
+          <h2 className="reviews-title">Opinie:</h2>
+          {movie.reviews.length > 0 ? (
+            movie.reviews.map((review: any, index: number) => (
+              <ReviewItem key={index} data={review} />
+            ))
+          ) : (
+            <p className="no-reviews">Brak opinii dla tego filmu.</p>
+          )}
+        </div>
+  
+        <Link to="/" className="back-link">Powrót na stronę główną</Link>
+      </main>
+    );
+  };
+  
+  export default MoviePage;

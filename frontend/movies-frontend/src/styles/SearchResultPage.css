@@ -1,0 +1,41 @@
+.search-results-container {
+    padding: 2rem;
+}
+
+.page-title {
+    font-size: 24px;
+    margin-bottom: 1rem;
+}
+
+.search-subtitle {
+    margin-bottom: 1.5rem;
+    color: #666;
+}
+
+.loading,
+.error {
+    text-align: center;
+    padding: 2rem;
+    font-size: 18px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 3rem;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.go-back {
+    text-align: center;
+    margin-top: 2rem;
+}

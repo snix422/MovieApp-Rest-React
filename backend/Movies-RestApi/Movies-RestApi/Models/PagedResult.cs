@@ -12,7 +12,7 @@
             Items = items;
             TotalItemsCount = totalCount;
             ItemsFrom = pageSize * (pageNumber - 1) + 1;
-            ItemsTo = ItemsFrom + pageSize - 1;
+            ItemsTo = Math.Min(ItemsFrom + pageSize - 1, TotalItemsCount);
             TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
         }
     }

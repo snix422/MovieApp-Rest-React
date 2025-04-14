@@ -3,7 +3,7 @@ import { getMoviesByCategory } from "../api/getMoviesByCategory"
 
 const useMoviesByCategoryName = (categoryName:string) => {
     const {data: movies, isLoading, error} = useQuery({
-        queryKey:['movies-by-category'],
+        queryKey:['movies-by-category',categoryName],
         queryFn:() => getMoviesByCategory(categoryName)
     })
 
