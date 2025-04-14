@@ -38,14 +38,15 @@
 
 ### 1. Backend (.NET)
 
-```bash
 cd backend
 dotnet restore
 dotnet build
 dotnet run
 
 ### 2. Frontend (React + Typescript)
-```bash
+
 cd frontend
 npm install
 npm run dev
+
+
