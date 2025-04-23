@@ -12,7 +12,7 @@ namespace Movies_RestApi.Tests.UnitTests
         private readonly Mock<ILogger<MovieController>> _loggerMock;
         private readonly Mock<IMovieService> _movieServiceMock;
         private readonly MovieController _controller;
-        public MovieControllerTests() 
+        public MovieControllerTests()
         {
             _loggerMock = new Mock<ILogger<MovieController>>();
             _movieServiceMock = new Mock<IMovieService>();
@@ -36,7 +36,7 @@ namespace Movies_RestApi.Tests.UnitTests
             var result = await _controller.GetMovies(query);
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
             var returnValue = Assert.IsType<PagedResult<MovieDTO>>(okResult.Value);
-            Assert.Equal(2,returnValue.Items.Count());
+            Assert.Equal(2, returnValue.Items.Count());
             Assert.Equal("Movie 2", returnValue.Items[1].Title);
             Assert.Equal("Movie 1", returnValue.Items.First().Title);
             Assert.Contains(returnValue.Items, m => m.Title == "Movie 1");
@@ -56,12 +56,24 @@ namespace Movies_RestApi.Tests.UnitTests
             };
 
             _movieServiceMock.Setup(service => service.GetTopRatedMovies()).ReturnsAsync(movies.Take(5));
-            var result =  await _controller.GetTopRatedMovies();
+            var result = await _controller.GetTopRatedMovies();
             var okResult = Assert.IsType<OkObjectResult>(result);
             var returnValue = Assert.IsType<IEnumerable<MovieDTO>>(okResult.Value);
-            Assert.Equal(5,returnValue.Count());
-            Assert.Equal("Movie 1",returnValue.First().Title);
-            Assert.Contains(returnValue, m => m.Rating == 10);  
+            Assert.Equal(5, returnValue.Count());
+            Assert.Equal("Movie 1", returnValue.First().Title);
+            Assert.Contains(returnValue, m => m.Rating == 10);
+        }
+
+        [Fact]
+        public async Task GetMovieById_ReturnsOkResult_WithMovie()
+        {
+            var movie = new MovieDTO { Id = 1, Title = "Movie Sample 1", Rating = 8 };
+            _movieServiceMock.Setup(service => service.GetMovieById(movie.Id)).ReturnsAsync(movie);
+            var result = await _controller.GetMovie(movie.Id);
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var returnValue = Assert.IsType<MovieDTO>(okResult.Value);
+            Assert.Equal(8, returnValue.Rating);
+            Assert.Contains("Movie", returnValue.Title);
         }
     }
 }
