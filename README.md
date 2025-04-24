@@ -37,6 +37,12 @@
 
 ## 📦 Installation
 
+### 1. Clone the repository
+
+```bash
+git clone
+cd  movie-app
+
 ### 1. Backend (.NET)
 ```bash
 cd backend
