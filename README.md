@@ -40,7 +40,7 @@
 ### 1. Clone the repository
 
 ```bash
-git clone
+git clone https://github.com/snix422/MovieApp-Rest-React.git
 cd  movie-app
 
 ### 1. Backend (.NET)
