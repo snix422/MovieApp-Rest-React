@@ -19,6 +19,7 @@
 - 🗃 Entity Framework Core (for database operations)
 - 🛡 Custom middleware for error handling & logging
 - 🔎 Support for filtering, searching, and top-rated queries
+- 🛡 Unit and integration testing using xUnit and Moq
 
 ---
 
