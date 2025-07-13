@@ -4,18 +4,12 @@ using Movies_RestApi.Data;
 using Movies_RestApi.Entities;
 using Movies_RestApi.Exceptions;
 using Movies_RestApi.Models;
+using Movies_RestApi.Services.Interfaces;
 using System.Collections;
 
 namespace Movies_RestApi.Services
 {
-    public interface IMovieService
-    {
-        Task<MovieDTO> GetMovieById(int id);
-        PagedResult<MovieDTO> GetAllMovies(MovieQuery query);
-        IEnumerable<MovieDTO> GetMoviesByQuery(string query);
-        IEnumerable<MovieDTO> GetMoviesByCategory(string category);
-        Task<IEnumerable<MovieDTO>> GetTopRatedMovies();
-    }
+   
     public class MovieService : IMovieService
     {
         private readonly DataContext _dbContext;

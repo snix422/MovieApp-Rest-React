@@ -3,6 +3,7 @@ using Moq;
 using Movies_RestApi.Controllers;
 using Movies_RestApi.Models;
 using Movies_RestApi.Services;
+using Movies_RestApi.Services.Interfaces;
 using Xunit;
 
 namespace Movies_RestApi.Tests.UnitTests

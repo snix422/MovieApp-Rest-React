@@ -9,6 +9,7 @@ using Movies_RestApi.Services;
 using FluentValidation;
 using Movies_RestApi.Models.Validators;
 using Movies_RestApi.Models;
+using Movies_RestApi.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

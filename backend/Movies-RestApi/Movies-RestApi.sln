@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies-RestApi", "Movies-RestApi\Movies-RestApi.csproj", "{0324366D-2884-465E-B97D-9150A4916E2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies-RestApi", "Movies-RestApi\Movies-RestApi.csproj", "{0324366D-2884-465E-B97D-9150A4916E2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies-RestApi-Tests", "Movies-RestApi-Tests\Movies-RestApi-Tests.csproj", "{AA93F8BC-ABBC-4443-9A5D-F302BB2AFCF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0324366D-2884-465E-B97D-9150A4916E2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0324366D-2884-465E-B97D-9150A4916E2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0324366D-2884-465E-B97D-9150A4916E2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA93F8BC-ABBC-4443-9A5D-F302BB2AFCF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA93F8BC-ABBC-4443-9A5D-F302BB2AFCF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA93F8BC-ABBC-4443-9A5D-F302BB2AFCF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA93F8BC-ABBC-4443-9A5D-F302BB2AFCF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

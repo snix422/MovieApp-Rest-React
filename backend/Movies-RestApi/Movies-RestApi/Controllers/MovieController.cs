@@ -6,6 +6,7 @@ using Movies_RestApi.Entities;
 using Movies_RestApi.Exceptions;
 using Movies_RestApi.Models;
 using Movies_RestApi.Services;
+using Movies_RestApi.Services.Interfaces;
 using System.Runtime.CompilerServices;
 using MovieDTO = Movies_RestApi.Models.MovieDTO;
 
