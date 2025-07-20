@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
+using Movies_RestApi.Data;
+using Movies_RestApi.Entities;
 using Movies_RestApi.Models;
+using NLog.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +17,31 @@ namespace Movies_RestApi_Tests
     public class MovieApiIntegrationTests : IClassFixture<CustomWebApplicationFactory>
     {
         private readonly HttpClient _httpClient;
+        private readonly CustomWebApplicationFactory _customWebApplicationFactory;
 
-        public MovieApiIntegrationTests(CustomWebApplicationFactory applicationFactory)
+        public MovieApiIntegrationTests(CustomWebApplicationFactory customWebApplicationFactory)
         {
-            _httpClient = applicationFactory.CreateClient();
+            var dbName = Guid.NewGuid().ToString();
+            _customWebApplicationFactory = new CustomWebApplicationFactory(dbName);  
+
+            _httpClient = _customWebApplicationFactory.CreateClient();
+
+            // Przygotuj bazę danych i dane testowe
+            using var scope = _customWebApplicationFactory.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<DataContext>();
+
+            db.Database.EnsureDeleted();
+            db.Database.EnsureCreated();
+
+            db.Movies.AddRange(
+                new Movie { Id = 1, Title = "Inception", Rating = 9, ImageUrl = "inception" },
+                new Movie { Id = 2, Title = "Interstellar", Rating = 8, ImageUrl = "interstellar" },
+                new Movie { Id = 3, Title = "Tenet", Rating = 7, ImageUrl = "Tenet" },
+                new Movie { Id = 4, Title = "Dunkirk", Rating = 7, ImageUrl = "Dunkirk" },
+                new Movie { Id = 5, Title = "Batman Begins", Rating = 9, ImageUrl = "Batman" },
+                new Movie { Id = 6, Title = "The Dark Knight", Rating = 10, ImageUrl = "Dark Knight" }
+            );
+            db.SaveChanges();
         }
 
         [Fact]

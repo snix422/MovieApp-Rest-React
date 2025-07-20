@@ -72,10 +72,10 @@ namespace Movies_RestApi_Tests
             _mockMovieService.Setup(service => service.GetTopRatedMovies()).ReturnsAsync(movies.Take(5));
             var resultController = await _movieController.GetTopRatedMovies();
             var okResult = Assert.IsType<OkObjectResult>(resultController.Result);
-            var returnValue = Assert.IsType<List<MovieDTO>>(okResult.Value);
+            var returnValue = Assert.IsAssignableFrom<IEnumerable<MovieDTO>>(okResult.Value);
 
-            Assert.Equal(5, returnValue.Count);
-            Assert.Contains(returnValue, m => m.Title == "Movie1");
+            Assert.Equal(5, returnValue.Count());
+            Assert.Contains(returnValue, m => m.Title == "Movie 1");
         }
 
         public async Task GetMovie_ReturnsNotFound()

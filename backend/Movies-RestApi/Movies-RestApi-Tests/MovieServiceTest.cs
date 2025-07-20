@@ -36,7 +36,8 @@ namespace Movies_RestApi_Tests
             _context.Genres.Add(genre);
             _context.Directors.Add(director);
             _context.Actors.AddRange(actor1, actor2);
-
+            _context.ProductionDetails.Add(productionDetails);
+            _context.SaveChanges();
 
             var movies = new List<Movie>
     {
