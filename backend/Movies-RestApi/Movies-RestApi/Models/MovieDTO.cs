@@ -11,7 +11,7 @@ namespace Movies_RestApi.Models
         public string CategoryName { get; set; }
         public decimal Budget { get; set; }
         public int Duration { get; set; }
-        public string Studio {  get; set; }
+        public string Studio { get; set; }
         public string DirectorName { get; set; }
         public string DirectorSurname { get; set; }
         public double Rating { get; set; }

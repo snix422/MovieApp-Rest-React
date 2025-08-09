@@ -1,13 +1,12 @@
-import axios from "axios"
-
+import axios from 'axios';
 
 export const apiClient = axios.create({
-    baseURL: "https://localhost:7109/api",
-    headers:{
-        "Content-Type":"application/json"
-    },
-    timeout:5000
-})
+  baseURL: 'https://localhost:7109/api',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  timeout: 5000,
+});
 
 /*apiClient.interceptors.request.use(
     (config) => {

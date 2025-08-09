@@ -29,19 +29,19 @@ namespace Movies_RestApi.Controllers
         {
             _logger.LogInformation("Pobieranie listy filmów...");
 
-      
-     
-            var moviesDTO =  _movieService.GetAllMovies(query);
+
+
+            var moviesDTO = _movieService.GetAllMovies(query);
 
             return Ok(moviesDTO);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<MovieDTO>> GetMovie([FromRoute]int id)
+        public async Task<ActionResult<MovieDTO>> GetMovie([FromRoute] int id)
         {
-           var movieDTO = await _movieService.GetMovieById(id);
+            var movieDTO = await _movieService.GetMovieById(id);
 
-           return Ok(movieDTO);
+            return Ok(movieDTO);
         }
 
         [HttpGet("top-rated")]
@@ -53,28 +53,28 @@ namespace Movies_RestApi.Controllers
         }
 
         [HttpGet("category/{categoryName}")]
-        public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMoviesByCategory([FromRoute]string categoryName)
+        public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMoviesByCategory([FromRoute] string categoryName)
         {
-          
+
             var moviesDTO = _movieService.GetMoviesByCategory(categoryName);
-            
-            return Ok(moviesDTO);  
+
+            return Ok(moviesDTO);
 
         }
 
         [HttpGet("query")]
 
-        public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMoviesByQuery([FromQuery]string query)
+        public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMoviesByQuery([FromQuery] string query)
         {
-            if(string.IsNullOrEmpty(query))
+            if (string.IsNullOrEmpty(query))
             {
                 return BadRequest("Fraza szukana nie może być pusta");
             }
-            
+
             var moviesDTO = _movieService.GetMoviesByQuery(query);
 
             return Ok(moviesDTO);
-                
+
         }
 
     }

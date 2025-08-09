@@ -20,7 +20,7 @@ namespace Movies_RestApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Actor>>> GetActors()
         {
-            
+
             var actors = await _actorService.GetAllActors();
 
             return Ok(actors);

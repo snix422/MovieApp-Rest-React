@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Movies_RestApi;
 using Movies_RestApi.Data;
 using Movies_RestApi.Entities;
+using Movies_RestApi.Exceptions;
 using Movies_RestApi.Models;
 using Movies_RestApi.Services;
 using Movies_RestApi.Services.Interfaces;
@@ -29,8 +31,8 @@ namespace Movies_RestApi_Tests
             // Przykładowe wspólne obiekty dla wielu filmów
             var genre = new Genre { Id = 1, Name = "Dramat" };
             var director = new Director { Id = 1, FirstName = "Jan", LastName = "Kowalski" };
-            var actor1 = new Actor { Id = 1, FirstName = "Aktor A", LastName="Ab" };
-            var actor2 = new Actor { Id = 2, FirstName = "Aktor B", LastName="Ba" };
+            var actor1 = new Actor { Id = 1, FirstName = "Aktor A", LastName = "Ab" };
+            var actor2 = new Actor { Id = 2, FirstName = "Aktor B", LastName = "Ba" };
             var productionDetails = new ProductionDetails { Id = 1, Budget = 1000000, Studio = "Polska", Duration = 120 };
 
             _context.Genres.Add(genre);
@@ -98,7 +100,7 @@ namespace Movies_RestApi_Tests
         },
         new Movie
         {
-            Id = 5,            
+            Id = 5,
             Title = "Gra o tron",
             ImageUrl = "https://example.com/breakingbad.jpg",
             Genre = genre,
@@ -205,5 +207,12 @@ namespace Movies_RestApi_Tests
             Assert.Equal(1, result.Id);
             Assert.Equal("Wikingowie", result.Title);
         }
+
+        [Fact]
+        public async Task GetMovieById_ReturnFailedWithNotExistId()
+        {
+            var nonExistendId = 55555;
+            await Assert.ThrowsAsync<NotFoundException>(() => _movieService.GetMovieById(nonExistendId));
+        } 
     }
 }

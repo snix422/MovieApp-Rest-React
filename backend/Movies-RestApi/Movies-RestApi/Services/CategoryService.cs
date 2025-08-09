@@ -40,7 +40,7 @@ namespace Movies_RestApi.Services
             return categoriesDTO;
         }
 
-        public async Task<GenreDTO> GetCategoryByName(string categoryName) 
+        public async Task<GenreDTO> GetCategoryByName(string categoryName)
         {
             var category = await _dbContext.Genres
                .Where(g => g.Name == categoryName)

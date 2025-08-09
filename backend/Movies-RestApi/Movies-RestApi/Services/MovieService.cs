@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace Movies_RestApi.Services
 {
-   
+
     public class MovieService : IMovieService
     {
         private readonly DataContext _dbContext;
@@ -29,7 +29,7 @@ namespace Movies_RestApi.Services
                        .Include(m => m.ProductionDetails)
                        .Include(m => m.Reviews)
                        .FirstOrDefaultAsync(m => m.Id == id);
-               
+
             if (movie is null) throw new NotFoundException("Movie not found");
 
 
@@ -43,7 +43,7 @@ namespace Movies_RestApi.Services
 
             var baseQuery = _dbContext.Movies
                         .Include(m => m.Genre)
-                        .Include(m => m.Director) 
+                        .Include(m => m.Director)
                         .Include(m => m.ProductionDetails)
                         .Include(m => m.Reviews)
                         .Include(m => m.Actors)
@@ -51,7 +51,7 @@ namespace Movies_RestApi.Services
 
 
             var movies = baseQuery
-                        .Skip(query.pageSize * (query.pageNumber -1))
+                        .Skip(query.pageSize * (query.pageNumber - 1))
                         .Take(query.pageSize)
                         .ToList();
 
@@ -64,8 +64,8 @@ namespace Movies_RestApi.Services
             var result = new PagedResult<MovieDTO>(moviesDTO, totalMoviesCount, query.pageSize, query.pageNumber);
 
             return result;
-            
-           
+
+
         }
 
         public async Task<IEnumerable<MovieDTO>> GetTopRatedMovies()
@@ -89,7 +89,7 @@ namespace Movies_RestApi.Services
 
         public IEnumerable<MovieDTO> GetMoviesByQuery(string query)
         {
-            
+
             var movies = _dbContext.Movies
                 .Where(m => EF.Functions.Like(m.Title.ToLower(), $"%{query.ToLower()}%"))
                         .Include(m => m.Genre)
@@ -101,7 +101,7 @@ namespace Movies_RestApi.Services
 
 
             if (movies is null) throw new NotFoundException("Nie znaleziono filmów");
-          
+
             var moviesDTO = _mapper.Map<List<MovieDTO>>(movies);
 
             return moviesDTO;
@@ -110,8 +110,8 @@ namespace Movies_RestApi.Services
         public IEnumerable<MovieDTO> GetMoviesByCategory(string category)
         {
             var movies = _dbContext.Movies
-                            .Include(m => m.Genre)  
-                            .Where(m => m.Genre != null && m.Genre.Name.ToLower() == category.ToLower())  
+                            .Include(m => m.Genre)
+                            .Where(m => m.Genre != null && m.Genre.Name.ToLower() == category.ToLower())
                             .ToList();
 
             Console.WriteLine(movies);
@@ -122,5 +122,5 @@ namespace Movies_RestApi.Services
 
         }
     }
-    }
+}
 

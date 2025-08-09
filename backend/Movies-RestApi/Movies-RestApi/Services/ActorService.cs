@@ -5,14 +5,14 @@ using Movies_RestApi.Exceptions;
 
 namespace Movies_RestApi.Services
 {
-    public interface IActorService 
+    public interface IActorService
     {
         Task<List<Actor>> GetAllActors();
     }
     public class ActorService : IActorService
     {
         private readonly DataContext _dbContext;
-        public ActorService(DataContext dbContext) 
+        public ActorService(DataContext dbContext)
         {
             _dbContext = dbContext;
         }

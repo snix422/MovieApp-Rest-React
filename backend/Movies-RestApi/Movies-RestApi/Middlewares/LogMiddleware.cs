@@ -6,11 +6,11 @@ namespace Movies_RestApi.Middlewares
     public class LogMiddleware : IMiddleware
     {
         private readonly ILogger _logger;
-        public LogMiddleware(ILogger logger) 
+        public LogMiddleware(ILogger logger)
         {
             _logger = logger;
         }
-        
+
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {

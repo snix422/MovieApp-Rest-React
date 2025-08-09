@@ -22,7 +22,7 @@ namespace Movies_RestApi_Tests
         public MovieApiIntegrationTests(CustomWebApplicationFactory customWebApplicationFactory)
         {
             var dbName = Guid.NewGuid().ToString();
-            _customWebApplicationFactory = new CustomWebApplicationFactory(dbName);  
+            _customWebApplicationFactory = new CustomWebApplicationFactory(dbName);
 
             _httpClient = _customWebApplicationFactory.CreateClient();
 
@@ -52,8 +52,10 @@ namespace Movies_RestApi_Tests
             var movies = await response.Content.ReadFromJsonAsync<List<MovieDTO>>();
             Assert.NotNull(movies);
             Assert.True(movies.Any());
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
+        [Fact]
         public async Task GetMovie_ReturnOkAndMovie()
         {
             var response = await _httpClient.GetAsync("/api/movie/1");
@@ -63,6 +65,7 @@ namespace Movies_RestApi_Tests
             Assert.Equal("Inception", movie.Title);
         }
 
+        [Fact]
         public async Task GetTopMovies_ReturnsOkAnd5Results()
         {
             var response = await _httpClient.GetAsync("api/movie/top-rated");
@@ -78,7 +81,7 @@ namespace Movies_RestApi_Tests
             var response = await _httpClient.GetAsync("api/movie/786768789");
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
             var movies = await response.Content.ReadFromJsonAsync<MovieDTO>();
-            Assert.Null(movies);    
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [Fact]

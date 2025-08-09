@@ -32,14 +32,14 @@ namespace Movies_RestApi_Tests
               d => d.ServiceType == typeof(DbContextOptions<DataContext>));
                 if (descriptor != null)
                     services.Remove(descriptor);
-                
+
                 services.AddDbContext<DataContext>(options =>
                 {
                     options.UseInMemoryDatabase(_databaseName);
                 });
 
-                
-              
+
+
             });
         }
     }

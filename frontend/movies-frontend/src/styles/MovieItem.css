@@ -1,53 +1,55 @@
 .movie-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 15vw;
-    height: 40vh;
-    gap: -25px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 15vw;
+  height: 40vh;
+  gap: -25px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 10px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .movie-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 .movie-item h2 {
-    font-size: 20px;
-    color: #333;
-    margin-bottom: 10px;
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
 }
 
 .movie-item h3 {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 15px;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 15px;
 }
 
 .movie-item button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .movie-item button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .img {
-    width: 100%;
-    height: 60%;
+  width: 100%;
+  height: 60%;
 }

@@ -1,34 +1,34 @@
 .movie-details {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 .movie-img {
-    width: 100%;
-    max-height: 500px;
-    object-fit: cover;
-    margin-bottom: 1rem;
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  margin-bottom: 1rem;
 }
 
 .movie-info h2,
 .movie-info h3,
 .movie-info h4,
 .movie-info h5 {
-    margin: 0.5rem 0;
+  margin: 0.5rem 0;
 }
 
 .movie-reviews {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .back-link {
-    display: inline-block;
-    margin-top: 2rem;
-    color: #1e40af;
-    text-decoration: none;
+  display: inline-block;
+  margin-top: 2rem;
+  color: #1e40af;
+  text-decoration: none;
 }
 
 .back-link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }

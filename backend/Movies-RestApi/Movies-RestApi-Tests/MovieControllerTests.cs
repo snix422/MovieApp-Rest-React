@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using Movies_RestApi.Controllers;
+using Movies_RestApi.Exceptions;
 using Movies_RestApi.Models;
 using Movies_RestApi.Services.Interfaces;
 using System;
@@ -78,13 +79,16 @@ namespace Movies_RestApi_Tests
             Assert.Contains(returnValue, m => m.Title == "Movie 1");
         }
 
+        [Fact]
         public async Task GetMovie_ReturnsNotFound()
         {
-            _mockMovieService.Setup(service => service.GetMovieById(999)).ReturnsAsync((MovieDTO)null);
-            var result = await _movieController.GetMovie(999);
-            var notFound = Assert.IsType<NotFoundResult>(result.Result);
 
-            Assert.Equal(404, notFound.StatusCode);
+            var mockId = 999;
+
+            _mockMovieService.Setup(s => s.GetMovieById(mockId)).ThrowsAsync(new NotFoundException("Movie not found"));
+
+            await Assert.ThrowsAsync<NotFoundException>(() => _movieController.GetMovie(mockId));
+
         }
     }
 }

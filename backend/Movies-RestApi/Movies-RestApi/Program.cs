@@ -25,14 +25,14 @@ builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IActorService, ActorService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
-builder.Services.AddScoped<IValidator<MovieQuery>,MovieQueryValidator>();
+builder.Services.AddScoped<IValidator<MovieQuery>, MovieQueryValidator>();
 
 if (builder.Environment.EnvironmentName != "Testing")
 {
-   builder.Services.AddDbContext<DataContext>(options =>
-   options.UseSqlServer(@"Data Source=DESKTOP-J87EI3O\MSSQ2LSERVER;Initial Catalog=MoviesApiStudy;Integrated Security=True;TrustServerCertificate=True;"));
+    builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(@"Data Source=DESKTOP-J87EI3O\MSSQ2LSERVER;Initial Catalog=MoviesApiStudy;Integrated Security=True;TrustServerCertificate=True;"));
 }
-   
+
 builder.Services.AddAutoMapper(typeof(MovieMappingProfile).Assembly);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

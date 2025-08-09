@@ -20,12 +20,12 @@ namespace Movies_RestApi
                 .ForMember(m => m.DirectorSurname, c => c.MapFrom(s => s.Director.LastName))
                 .ForMember(m => m.Actors, c => c.MapFrom(s => s.Actors));
 
-            
+
 
             CreateMap<Genre, GenreDTO>();
             //.ForMember(m => m.CategoryName, c => c.MapFrom(s => s.Name)); 
 
-            
+
         }
     }
 }

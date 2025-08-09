@@ -8,7 +8,7 @@ namespace Movies_RestApi.Tests.IntegrationTests
     public class MovieApiIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly HttpClient _httpClient;
-        public MovieApiIntegrationTests(WebApplicationFactory<Program> factory) 
+        public MovieApiIntegrationTests(WebApplicationFactory<Program> factory)
         {
             _httpClient = factory.CreateClient();
         }
@@ -26,7 +26,7 @@ namespace Movies_RestApi.Tests.IntegrationTests
         public async Task GetMovie_ReturnsOkAndMovie()
         {
             var response = await _httpClient.GetAsync("api/movie/1");
-            Assert.Equal(HttpStatusCode.OK,response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             var movies = await response.Content.ReadFromJsonAsync<MovieDTO>();
             Assert.NotNull(movies);
         }
@@ -38,7 +38,7 @@ namespace Movies_RestApi.Tests.IntegrationTests
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             var movies = await response.Content.ReadFromJsonAsync<List<MovieDTO>>();
             Assert.NotNull(movies);
-            Assert.Equal(5,movies.Count());
+            Assert.Equal(5, movies.Count());
         }
 
         [Fact]
@@ -50,6 +50,6 @@ namespace Movies_RestApi.Tests.IntegrationTests
             Assert.Null(movies);
         }
 
-        
+
     }
 }

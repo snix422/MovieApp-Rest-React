@@ -14,7 +14,7 @@ namespace Movies_RestApi.Controllers
     [Route("api/category")]
     public class CategoryController : Controller
     {
-       
+
         private readonly ICategoryService _categoryService;
 
         public CategoryController(ICategoryService categoryService)
@@ -26,7 +26,7 @@ namespace Movies_RestApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GenreDTO>>> GetCategories()
         {
-            
+
             var categories = await _categoryService.GetAllCategories();
 
             return Ok(categories);
@@ -35,13 +35,13 @@ namespace Movies_RestApi.Controllers
         [HttpGet("{categoryName}")]
         public async Task<ActionResult<GenreDTO>> GetCategory(string categoryName)
         {
-            
+
             var category = await _categoryService.GetCategoryByName(categoryName);
 
             return Ok(category);
         }
 
-        
+
 
     }
 }
